@@ -81,7 +81,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 5.48 seconds
+## Importing time: 9.15 seconds
 ```
 ]
 .pull-right[
@@ -97,7 +97,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 0.68 seconds
+## Importing time: 0.84 seconds
 ```
 ]]
 .panel[.panel-name[Convenience]
@@ -208,7 +208,7 @@ Within the frame of data.table, columns can be referred to as variables
 * Can handle expressions (computing on columns)
 * Compute by calling functions on these variables 
 
-### .green[Ex 2.3.1] What's the range of listed years?
+### .green[Ex 2.3.1] What's the most listings?
 
 
 ```r
@@ -278,7 +278,8 @@ Argument by aggregates different operations of rows organized in the selected ar
 
 Special symbol .N: Holds the number of observations in determined group.&lt;br&gt;
 
-To see how it works we will show some exmpale with this housing dataset
+To see how it works we will show some examples with same housing dataset
+
 
 ---
 
@@ -363,13 +364,20 @@ Find the number of properties corresponding to each town and property type in 20
 ```
 
 ```
-##         Town Property Type        V1
-## 1:  Hartford                868915.6
-## 2:   Meriden         Condo  113666.1
-## 3:   Enfield         Condo  159418.0
-## 4: Bethlehem                 84999.0
-## 5:   Danbury               1681347.2
-## 6: Mansfield                618555.4
+##         Town Property Type
+## 1:  Hartford              
+## 2:   Meriden         Condo
+## 3:   Enfield         Condo
+## 4: Bethlehem              
+## 5:   Danbury              
+## 6: Mansfield              
+##           V1
+## 1:  868915.6
+## 2:  113666.1
+## 3:  159418.0
+## 4:   84999.0
+## 5: 1681347.2
+## 6:  618555.4
 ```
 
 ---
@@ -387,20 +395,20 @@ Find the average sale amount and ratio corresponding to each town and property t
 ```
 
 ```
-##         Town Property Type        V1
-## 1:  Hartford                868915.6
-## 2:   Meriden         Condo  113666.1
-## 3:   Enfield         Condo  159418.0
-## 4: Bethlehem                 84999.0
-## 5:   Danbury               1681347.2
-## 6: Mansfield                618555.4
-##           V2
-## 1: 1.5856239
-## 2: 1.8388497
-## 3: 0.9655503
-## 4: 0.9892965
-## 5: 1.3060542
-## 6: 2.2139034
+##         Town Property Type
+## 1:  Hartford              
+## 2:   Meriden         Condo
+## 3:   Enfield         Condo
+## 4: Bethlehem              
+## 5:   Danbury              
+## 6: Mansfield              
+##           V1        V2
+## 1:  868915.6 1.5856239
+## 2:  113666.1 1.8388497
+## 3:  159418.0 0.9655503
+## 4:   84999.0 0.9892965
+## 5: 1681347.2 1.3060542
+## 6:  618555.4 2.2139034
 ```
 
 ---
@@ -420,20 +428,27 @@ Find the average sale amount and ratio corresponding to each town, property type
 ```
 
 ```
-##         Town Property Type Assessed Value
-## 1:  Hartford                        FALSE
-## 2:   Meriden         Condo           TRUE
-## 3:   Enfield         Condo           TRUE
-## 4: Bethlehem                         TRUE
-## 5:   Danbury                         TRUE
-## 6: Mansfield                        FALSE
-##            V1        V2
-## 1:  101042.54 1.2549981
-## 2:  158588.06 1.1839235
-## 3:  175332.41 0.9254242
-## 4:  128333.33 1.1813865
-## 5: 2376028.66 1.3128604
-## 6:   87252.78 0.6426888
+##         Town Property Type
+## 1:  Hartford              
+## 2:   Meriden         Condo
+## 3:   Enfield         Condo
+## 4: Bethlehem              
+## 5:   Danbury              
+## 6: Mansfield              
+##    Assessed Value         V1
+## 1:          FALSE  101042.54
+## 2:           TRUE  158588.06
+## 3:           TRUE  175332.41
+## 4:           TRUE  128333.33
+## 5:           TRUE 2376028.66
+## 6:          FALSE   87252.78
+##           V2
+## 1: 1.2549981
+## 2: 1.1839235
+## 3: 0.9254242
+## 4: 1.1813865
+## 5: 1.3128604
+## 6: 0.6426888
 ```
 
 ---

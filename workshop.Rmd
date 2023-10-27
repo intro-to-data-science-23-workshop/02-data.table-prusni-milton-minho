@@ -230,7 +230,7 @@ rest <- dt[,list(Town)]
 * Can handle expressions (computing on columns)
 * Compute by calling functions on these variables 
 
-### .green[Ex 2.3.1] What's the range of listed years?
+### .green[Ex 2.3.1] What's the most listings?
 
 ```{r}
 rest <- dt[,median(`List Year`)]
@@ -287,7 +287,8 @@ Argument by aggregates different operations of rows organized in the selected ar
 
 Special symbol .N: Holds the number of observations in determined group.<br>
 
-To see how it works we will show some exmpale with this housing dataset
+To see how it works we will show some examples with same housing dataset
+
 
 ---
 
