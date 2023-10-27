@@ -44,7 +44,6 @@ library(xaringanthemer)
 style_solarized_light(
   base_font_size = "20px",
   text_font_size = "1.5rem",
-  code_font_size = "1.5rem",
   header_h1_font_size = "2.5rem",
   header_h2_font_size = "2rem",
   header_font_google = google_font("Roboto"),
@@ -199,7 +198,7 @@ rest <- dt[order(`Assessed Value`)]
 ### .green[Ex 2.1.4 Reorder the above based with the most recent listings appearing first]
 
 ```{r}
-rest <- dt[order(`Assessed Value`,`List Year`)]
+rest <- dt[order(`Assessed Value`,-`List Year`)]
 ```
 
 ---
@@ -356,21 +355,6 @@ head(Ex_3_5)
 ---
 
 # Example 3.6
-
-----
-
-Find the average sale amount and ratio corresponding to each town, property type and assessed value higher than 100k, in 2010
-
-
-```{r}
-Ex_3_6 <- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`,`Assessed Value` >100000)]
-
-head(Ex_3_6)
-```
-
----
-
-# Example 3.7
 
 ----
  include in Example 3.5. ascending ordered in town and descending order in property type
