@@ -81,7 +81,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 4.73 seconds
+## Importing time: 5.48 seconds
 ```
 ]
 .pull-right[
@@ -97,7 +97,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 0.61 seconds
+## Importing time: 0.68 seconds
 ```
 ]]
 .panel[.panel-name[Convenience]
@@ -119,15 +119,7 @@ You don't need to use $ sign
 +   dt[Town=="Hartford"]
 ```
 ]]]
----
 
-# General Structure of data.table
-----
-&lt;img src="./material/syntax.png" width="50%" style="display: block; margin: auto;" /&gt;
-&lt;br&gt;&lt;br&gt;
-* It is similar with SQL structure  
-
-* This structure is all you need to remember
 ---
 
 class: inverse, center, middle
@@ -137,7 +129,139 @@ name: basic
 ----
 
 ---
+# General Form of data.table Syntax
+----
 
+
+&lt;img src="./material/syntax.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;
+
+i: indexes rows &lt;br&gt;
+
+j: indexes columns &lt;br&gt;
+
+by: "group by"
+
+---
+
+# Subset rows in i
+
+Within the frame of data.table, columns can be referred to as variables 
+
+### .green[Ex 2.1.1: Find the details of commercial property listings in the town Ansonia]
+
+
+```r
+&gt; rest &lt;- dt[Town=="Ansonia" &amp; `Property Type`=="Commercial"]
+```
+
+### .green[Ex 2.1.2: Retrieve the first 4 rows of the data]
+
+
+```r
+&gt; rest &lt;- dt[1:4]
+```
+---
+# Order() is internally optimised
+----
+### .green[Ex 2.1.3: Order the rows from the lowest to the highest assessed value of the properties] 
+
+
+```r
+&gt; rest &lt;- dt[order(`Assessed Value`)]
+```
+
+### .green[Ex 2.1.4 Reorder the above based with the most recent listings appearing first]
+
+
+```r
+&gt; rest &lt;- dt[order(`Assessed Value`,`List Year`)]
+```
+
+---
+# Select column(s) in j
+----
+
+### .green[Ex 2.2.1 Selct Town Column, but return it as a vector]
+
+
+```r
+&gt; rest &lt;- dt[,Town]
+```
+
+### .green[Ex 2.2.2 Select Town column, but return it as a data.table instead] 
+
+
+```r
+&gt; rest &lt;- dt[,list(Town)]
+```
+* In case of a single column name, not wrapping with list() returns a vector instead.
+* Can use either .() or list() 
+* Note: data.tableS (and data.frameS) are internally lists as well
+
+---
+
+# Computing in j
+----
+
+* More than just selecting columns
+* Can handle expressions (computing on columns)
+* Compute by calling functions on these variables 
+
+### .green[Ex 2.3.1] What's the range of listed years?
+
+
+```r
+&gt; rest &lt;- dt[,median(`List Year`)]
+&gt; rest
+```
+
+```
+## [1] 2010
+```
+
+---
+
+# Subset in i and compute in j
+
+### .green[Calculate the average assessed values of commercial properties in Town names Ansonia]
+
+
+```r
+&gt; rest &lt;- dt[Town == "Ansonia" &amp; `Property Type` == "Commercial", .(avg_val= mean(`Assessed Value`))]
+&gt; rest
+```
+
+```
+##     avg_val
+## 1: 343212.5
+```
+
+
+---
+# But how can I refer to columns by names in j (like in a data.frame)?
+----
+If you’re writing out the column names explicitly, there’s no difference vis-a-vis data.frame 
+
+### .green[Ex 2.5.1 Select both Serial Number  and Residential Type columns the data.frame way.] 
+
+```r
+&gt; rest &lt;- dt[,c("Serial Number","Residential Type")]
+```
+---
+# But how can I refer to columns by names in j (like in a data.frame)?
+----
+
+If you've stored the desired columns in a character vector, you can use ..prefix
+
+### .green[Ex 2.5.2 Select columns named in a variable using the ..prefix]
+
+
+```r
+&gt; select_cols = c("Serial Number","Residential Type")
+&gt; rest &lt;- dt[,..select_cols]
+```
+---
 class: inverse, center, middle
 name: advanced 
 # Advanced Syntax of data.table: by argument
@@ -150,9 +274,12 @@ name: advanced
 
 Argument by aggregates different operations of rows organized in the selected arguments of columns.
 
-## Get the number of rows
+### .green[Get the number of rows]
 
-Special symbol .N: Holds the number of observations in determined group.
+Special symbol .N: Holds the number of observations in determined group.&lt;br&gt;
+
+To see how it works we will show some exmpale with this housing dataset
+
 ---
 
 # Example 3.1 
@@ -260,13 +387,20 @@ Find the average sale amount and ratio corresponding to each town and property t
 ```
 
 ```
-##         Town Property Type        V1        V2
-## 1:  Hartford                868915.6 1.5856239
-## 2:   Meriden         Condo  113666.1 1.8388497
-## 3:   Enfield         Condo  159418.0 0.9655503
-## 4: Bethlehem                 84999.0 0.9892965
-## 5:   Danbury               1681347.2 1.3060542
-## 6: Mansfield                618555.4 2.2139034
+##         Town Property Type        V1
+## 1:  Hartford                868915.6
+## 2:   Meriden         Condo  113666.1
+## 3:   Enfield         Condo  159418.0
+## 4: Bethlehem                 84999.0
+## 5:   Danbury               1681347.2
+## 6: Mansfield                618555.4
+##           V2
+## 1: 1.5856239
+## 2: 1.8388497
+## 3: 0.9655503
+## 4: 0.9892965
+## 5: 1.3060542
+## 6: 2.2139034
 ```
 
 ---
@@ -286,13 +420,20 @@ Find the average sale amount and ratio corresponding to each town, property type
 ```
 
 ```
-##         Town Property Type Assessed Value         V1        V2
-## 1:  Hartford                        FALSE  101042.54 1.2549981
-## 2:   Meriden         Condo           TRUE  158588.06 1.1839235
-## 3:   Enfield         Condo           TRUE  175332.41 0.9254242
-## 4: Bethlehem                         TRUE  128333.33 1.1813865
-## 5:   Danbury                         TRUE 2376028.66 1.3128604
-## 6: Mansfield                        FALSE   87252.78 0.6426888
+##         Town Property Type Assessed Value
+## 1:  Hartford                        FALSE
+## 2:   Meriden         Condo           TRUE
+## 3:   Enfield         Condo           TRUE
+## 4: Bethlehem                         TRUE
+## 5:   Danbury                         TRUE
+## 6: Mansfield                        FALSE
+##            V1        V2
+## 1:  101042.54 1.2549981
+## 2:  158588.06 1.1839235
+## 3:  175332.41 0.9254242
+## 4:  128333.33 1.1813865
+## 5: 2376028.66 1.3128604
+## 6:   87252.78 0.6426888
 ```
 
 ---
@@ -309,13 +450,20 @@ Find the average sale amount and ratio corresponding to each town, property type
 ```
 
 ```
-##       Town Property Type       V1        V2
-## 1: Andover Single Family 248182.1 0.8505913
-## 2: Andover                39213.0 0.7939781
-## 3: Ansonia    Two Family 138829.1 1.6120380
-## 4: Ansonia  Three Family 138580.0 1.7169154
-## 5: Ansonia Single Family 180955.5 1.1250155
-## 6: Ansonia   Four Family  99000.0 1.8050505
+##       Town Property Type       V1
+## 1: Andover Single Family 248182.1
+## 2: Andover                39213.0
+## 3: Ansonia    Two Family 138829.1
+## 4: Ansonia  Three Family 138580.0
+## 5: Ansonia Single Family 180955.5
+## 6: Ansonia   Four Family  99000.0
+##           V2
+## 1: 0.8505913
+## 2: 0.7939781
+## 3: 1.6120380
+## 4: 1.7169154
+## 5: 1.1250155
+## 6: 1.8050505
 ```
 
 

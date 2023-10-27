@@ -44,6 +44,7 @@ library(xaringanthemer)
 style_solarized_light(
   base_font_size = "20px",
   text_font_size = "1.5rem",
+  code_font_size = "1.5rem",
   header_h1_font_size = "2.5rem",
   header_h2_font_size = "2rem",
   header_font_google = google_font("Roboto"),
@@ -144,17 +145,7 @@ Hartford_dt <-
   dt[Town=="Hartford"]
 ```
 ]]]
----
 
-# General Structure of data.table
-----
-```{r echo=FALSE, fig.cap="",fig.align='center',out.width='50%'}
-knitr::include_graphics("./material/syntax.png")
-```
-<br><br>
-* It is similar with SQL structure  
-
-* This structure is all you need to remember
 ---
 
 class: inverse, center, middle
@@ -164,7 +155,122 @@ name: basic
 ----
 
 ---
+# General Form of data.table Syntax
+----
 
+
+```{r echo=FALSE, fig.cap="",fig.align='center',out.width='50%'}
+knitr::include_graphics("./material/syntax.png")
+```
+<br><br>
+
+i: indexes rows <br>
+
+j: indexes columns <br>
+
+by: "group by"
+
+---
+
+# Subset rows in i
+
+Within the frame of data.table, columns can be referred to as variables 
+
+### .green[Ex 2.1.1: Find the details of commercial property listings in the town Ansonia]
+
+```{r}
+rest <- dt[Town=="Ansonia" & `Property Type`=="Commercial"]
+```
+
+### .green[Ex 2.1.2: Retrieve the first 4 rows of the data]
+
+```{r}
+rest <- dt[1:4]
+```
+---
+# Order() is internally optimised
+----
+### .green[Ex 2.1.3: Order the rows from the lowest to the highest assessed value of the properties] 
+
+```{R}
+rest <- dt[order(`Assessed Value`)]
+```
+
+### .green[Ex 2.1.4 Reorder the above based with the most recent listings appearing first]
+
+```{r}
+rest <- dt[order(`Assessed Value`,`List Year`)]
+```
+
+---
+# Select column(s) in j
+----
+
+### .green[Ex 2.2.1 Selct Town Column, but return it as a vector]
+
+```{r}
+rest <- dt[,Town]
+```
+
+### .green[Ex 2.2.2 Select Town column, but return it as a data.table instead] 
+
+```{r}
+rest <- dt[,list(Town)]
+```
+* In case of a single column name, not wrapping with list() returns a vector instead.
+* Can use either .() or list() 
+* Note: data.tableS (and data.frameS) are internally lists as well
+
+---
+
+# Computing in j
+----
+
+* More than just selecting columns
+* Can handle expressions (computing on columns)
+* Compute by calling functions on these variables 
+
+### .green[Ex 2.3.1] What's the range of listed years?
+
+```{r}
+rest <- dt[,median(`List Year`)]
+rest
+```
+
+---
+
+# Subset in i and compute in j
+
+### .green[Calculate the average assessed values of commercial properties in Town names Ansonia]
+
+```{r}
+rest <- dt[Town == "Ansonia" & `Property Type` == "Commercial", .(avg_val= mean(`Assessed Value`))]
+rest
+```
+
+
+---
+# But how can I refer to columns by names in j (like in a data.frame)?
+----
+If you’re writing out the column names explicitly, there’s no difference vis-a-vis data.frame 
+
+### .green[Ex 2.5.1 Select both Serial Number  and Residential Type columns the data.frame way.] 
+```{r}
+rest <- dt[,c("Serial Number","Residential Type")]
+```
+---
+# But how can I refer to columns by names in j (like in a data.frame)?
+----
+
+If you've stored the desired columns in a character vector, you can use ..prefix
+
+### .green[Ex 2.5.2 Select columns named in a variable using the ..prefix]
+
+```{r}
+select_cols = c("Serial Number","Residential Type")
+rest <- dt[,..select_cols]
+```
+---
 class: inverse, center, middle
 name: advanced 
 # Advanced Syntax of data.table: by argument
@@ -177,9 +283,12 @@ name: advanced
 
 Argument by aggregates different operations of rows organized in the selected arguments of columns.
 
-## Get the number of rows
+### .green[Get the number of rows]
 
-Special symbol .N: Holds the number of observations in determined group.
+Special symbol .N: Holds the number of observations in determined group.<br>
+
+To see how it works we will show some exmpale with this housing dataset
+
 ---
 
 # Example 3.1 

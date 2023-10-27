@@ -9,7 +9,7 @@
     <script src="Practice_files/tile-view/tile-view.js"></script>
     <link href="Practice_files/panelset/panelset.css" rel="stylesheet" />
     <script src="Practice_files/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x44cdcf8a4794591a2fb6aff0ed71a89","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x25c4e21848e49978bb87017d57ffddc","expires":14}</script>
     <script src="Practice_files/himalaya/himalaya.js"></script>
     <script src="Practice_files/js-cookie/js.cookie.js"></script>
     <link href="Practice_files/editable/editable.css" rel="stylesheet" />
@@ -33,25 +33,20 @@ class: center, middle, inverse, title-slide
 
 # Before starting...
 
-1. Basic Syntax (3 questions)
+1. You can write your own answer in each question  
 
-2. Advanced Syntax (4 questions)
-
-3. You can write your own answer in each question  
-
-4. Don't forget to import library data.table
+2. Don't forget to import library data.table
 
 ```r
 library(data.table)
 ```
-
-5. We will use flights data in **nycflights13** library 
+3. We will use flights data in **nycflights13** library and remove NA
 
 
 ```r
 library(nycflights13)
 data("flights")
-flights &lt;- as.data.table(flights)
+flights &lt;- as.data.table(flights) |&gt; na.exclude()
 ```
 
 
@@ -61,9 +56,28 @@ class: inverse, center, middle
 
 # Basic Syntax (3 questions)
 ----
+
+---
+# Question 1
+----
+
+Get all the flights in the May 15th
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[month == 5 &amp; day == 15]
+```
+
+]]
 ---
 
-# Question 1
+# Question 2
+----
 
 Sort flights first by column 'month' in ascending order, and then by 'day' in decending order  
 .panelset[
@@ -78,8 +92,108 @@ ans &lt;- flights[order(month, -day)]
 
 ]]
 
+---
 
+# Question 3
+----
+Select both arr_delay and dep_delay columns
 
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[, .(arr_delay, dep_delay)]
+head(ans)
+```
+
+```
+##    arr_delay dep_delay
+## 1:        11         2
+## 2:        20         4
+## 3:        33         2
+## 4:       -18        -1
+## 5:       -25        -6
+## 6:        12        -4
+```
+]]
+
+---
+
+# Question 4
+----
+
+How many trips have had total delay(arr_delay + dep_delay) &gt; 0?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[, sum( (arr_delay + dep_delay) &gt; 0 )]
+ans
+```
+
+```
+## [1] 135059
+```
+
+]]
+---
+
+# Question 5
+----
+
+Calculate the average arrival and departure delay for all flights in the may 15th
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[month == 5 &amp; day == 15,
+               .(m_arr = mean(arr_delay), m_dep = mean(dep_delay))]
+ans
+```
+
+```
+##        m_arr    m_dep
+## 1: -2.029598 9.809725
+```
+]]
+---
+
+# Question 6
+----
+
+How can get the number of trips corresponding to each origin airport?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[, .(.N), by = .(origin)]
+ans
+```
+
+```
+##    origin      N
+## 1:    EWR 117127
+## 2:    LGA 101140
+## 3:    JFK 109079
+```
+]]
+
+---
 
 
     </textarea>

@@ -41,6 +41,7 @@ xaringanExtra::use_editable()
 library(xaringanthemer)
 style_solarized_dark( base_font_size = "20px",
   text_font_size = "1.5rem",
+  code_font_size = "1rem",
   header_h1_font_size = "2.5rem",
   header_h2_font_size = "2rem",
   header_font_google = google_font("Roboto"),
@@ -51,23 +52,18 @@ style_solarized_dark( base_font_size = "20px",
 
 # Before starting...
 
-1. Basic Syntax (3 questions)
+1. You can write your own answer in each question  
 
-2. Advanced Syntax (4 questions)
-
-3. You can write your own answer in each question  
-
-4. Don't forget to import library data.table
+2. Don't forget to import library data.table
 ```{r}
 library(data.table)
 ```
-
-5. We will use flights data in **nycflights13** library 
+3. We will use flights data in **nycflights13** library and remove NA
 
 ```{r}
 library(nycflights13)
 data("flights")
-flights <- as.data.table(flights)
+flights <- as.data.table(flights) |> na.exclude()
 ```
 
 
@@ -77,9 +73,27 @@ class: inverse, center, middle
 
 # Basic Syntax (3 questions)
 ----
+
+---
+# Question 1
+----
+
+Get all the flights in the May 15th
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[month == 5 & day == 15]
+```
+
+]]
 ---
 
-# Question 1
+# Question 2
+----
 
 Sort flights first by column 'month' in ascending order, and then by 'day' in decending order  
 .panelset[
@@ -93,7 +107,82 @@ ans <- flights[order(month, -day)]
 
 ]]
 
+---
 
+# Question 3
+----
+Select both arr_delay and dep_delay columns
 
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[, .(arr_delay, dep_delay)]
+head(ans)
+```
+]]
 
+---
 
+# Question 4
+----
+
+How many trips have had total delay(arr_delay + dep_delay) > 0?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[, sum( (arr_delay + dep_delay) > 0 )]
+ans
+
+```
+
+]]
+---
+
+# Question 5
+----
+
+Calculate the average arrival and departure delay for all flights in the may 15th
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[month == 5 & day == 15,
+               .(m_arr = mean(arr_delay), m_dep = mean(dep_delay))]
+ans
+
+```
+]]
+---
+
+# Question 6
+----
+
+How can get the number of trips corresponding to each origin airport?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[, .(.N), by = .(origin)]
+ans
+
+```
+]]
+
+---
+
+# Question 7
+
+How can we get 
