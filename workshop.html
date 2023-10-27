@@ -81,7 +81,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 5.33 seconds
+## Importing time: 12.33 seconds
 ```
 ]
 .pull-right[
@@ -97,7 +97,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 0.61 seconds
+## Importing time: 1.17 seconds
 ```
 ]]
 .panel[.panel-name[Convenience]
@@ -144,6 +144,41 @@ name: advanced
 ----
 
 ---
+
+# Genral Information 
+----
+
+Argument by aggregates different operations of rows organized in the selected arguments of columns.
+
+## Get the number of rows
+
+Special symbol .N: Holds the number of observations in determined group.
+---
+
+# Example 3.1 
+----
+Find the number of properties corresponding to each town
+
+
+
+
+
+```r
+&gt; Ex_3_1 &lt;- DT[, .(.N), by = .(Town)]
+&gt; head(Ex_3_1)
+```
+
+```
+##       Town    N
+## 1: Ansonia 4445
+## 2: Ashford 1385
+## 3:    Avon 7029
+## 4:  Berlin 5643
+## 5: Bethany 1616
+## 6:  Bethel 5598
+```
+
+
 
 
     </textarea>

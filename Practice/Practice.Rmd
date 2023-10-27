@@ -55,12 +55,21 @@ style_solarized_dark( base_font_size = "20px",
 
 2. Advanced Syntax (4 questions)
 
-3. You can use your own  
+3. You can write your own answer in each question  
 
 4. Don't forget to import library data.table
 ```{r}
 library(data.table)
 ```
+
+5. We will use flights data in **nycflights13** library 
+
+```{r}
+library(nycflights13)
+data("flights")
+flights <- as.data.table(flights)
+```
+
 
 ---
 
@@ -72,14 +81,14 @@ class: inverse, center, middle
 
 # Question 1
 
-Sort flights first by column origin in ascending order, and then by dest in decending order  
+Sort flights first by column 'month' in ascending order, and then by 'day' in decending order  
 .panelset[
 .panel[.panel-name[Your Answer]
 .can-edit[  
 ]]
 .panel[.panel-name[Our Answer]
 ```{r}
-ans <- flights[order(origin, -dest)]
+ans <- flights[order(month, -day)]
 ```
 
 ]]

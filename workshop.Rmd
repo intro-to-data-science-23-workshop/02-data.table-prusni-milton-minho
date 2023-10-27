@@ -172,4 +172,31 @@ name: advanced
 
 ---
 
+# Genral Information 
+----
+
+Argument by aggregates different operations of rows organized in the selected arguments of columns.
+
+## Get the number of rows
+
+Special symbol .N: Holds the number of observations in determined group.
+---
+
+# Example 3.1 
+----
+Find the number of properties corresponding to each town
+
+```{r, include=FALSE}
+DF <- read.csv("./material/real_estate.csv")
+DT <- as.data.table(DF)
+```
+
+
+```{r}
+Ex_3_1 <- DT[, .(.N), by = .(Town)]
+head(Ex_3_1)
+```
+
+
+
 
