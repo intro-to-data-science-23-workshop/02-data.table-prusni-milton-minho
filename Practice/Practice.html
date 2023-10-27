@@ -9,7 +9,7 @@
     <script src="Practice_files/tile-view/tile-view.js"></script>
     <link href="Practice_files/panelset/panelset.css" rel="stylesheet" />
     <script src="Practice_files/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"x25c4e21848e49978bb87017d57ffddc","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"bb34c7197d9348429a14607e573645a6","expires":14}</script>
     <script src="Practice_files/himalaya/himalaya.js"></script>
     <script src="Practice_files/js-cookie/js.cookie.js"></script>
     <link href="Practice_files/editable/editable.css" rel="stylesheet" />
@@ -33,14 +33,16 @@ class: center, middle, inverse, title-slide
 
 # Before starting...
 
-1. You can write your own answer in each question  
+* You can write your own answer in each question  
 
-2. Don't forget to import library data.table
+* Don't forget to import library data.table
+
 
 ```r
 library(data.table)
 ```
-3. We will use flights data in **nycflights13** library and remove NA
+
+* We will use flights data in **nycflights13** library and remove NA
 
 
 ```r
@@ -52,12 +54,6 @@ flights &lt;- as.data.table(flights) |&gt; na.exclude()
 
 ---
 
-class: inverse, center, middle
-
-# Basic Syntax (3 questions)
-----
-
----
 # Question 1
 ----
 
@@ -195,7 +191,31 @@ ans
 
 ---
 
+# Question 7
 
+----
+
+How can we get the average arrival and departure delay for each origin and month?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+
+```r
+ans &lt;- flights[,
+        .(mean(arr_delay), mean(dep_delay)),
+        by = .(origin, month)]
+```
+]]
+
+---
+
+class:inverse, center, middle
+
+# Thank you 
+----
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

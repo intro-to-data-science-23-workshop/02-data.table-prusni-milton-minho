@@ -16,13 +16,6 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(data.table)
-input <- if (file.exists("flights14.csv")) {
-  "flights14.csv"
-} else {
-  "https://raw.githubusercontent.com/Rdatatable/data.table/master/vignettes/flights14.csv"
-}
-# fast-and-friendly file reader 
-flights <- fread(input)
 knitr::opts_chunk$set(
   fig.width=9, fig.height=3.5, fig.retina=3,
   out.width = "100%",
@@ -52,13 +45,15 @@ style_solarized_dark( base_font_size = "20px",
 
 # Before starting...
 
-1. You can write your own answer in each question  
+* You can write your own answer in each question  
 
-2. Don't forget to import library data.table
+* Don't forget to import library data.table
+
 ```{r}
 library(data.table)
 ```
-3. We will use flights data in **nycflights13** library and remove NA
+
+* We will use flights data in **nycflights13** library and remove NA
 
 ```{r}
 library(nycflights13)
@@ -69,12 +64,6 @@ flights <- as.data.table(flights) |> na.exclude()
 
 ---
 
-class: inverse, center, middle
-
-# Basic Syntax (3 questions)
-----
-
----
 # Question 1
 ----
 
@@ -185,4 +174,27 @@ ans
 
 # Question 7
 
-How can we get 
+----
+
+How can we get the average arrival and departure delay for each origin and month?
+
+.panelset[
+.panel[.panel-name[Your Answer]
+.can-edit[  
+]]
+.panel[.panel-name[Our Answer]
+```{r}
+ans <- flights[,
+        .(mean(arr_delay), mean(dep_delay)),
+        by = .(origin, month)]
+
+
+```
+]]
+
+---
+
+class:inverse, center, middle
+
+# Thank you 
+----
