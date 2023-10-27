@@ -3,7 +3,7 @@
 
 ## Summary
 
-This repository provides materials for a session that is part of the [I2DS Tools for Data Science workshop](https://github.com/intro-to-data-science-23-workshop) run at the [Hertie School, Berlin](https://www.hertie-school.org/en/) in October 2023. The student-run workshop is part of the course [Introduction to Data Science](https://github.com/intro-to-data-science-22) taught by Simon Munzert at the Hertie School, Berlin, in Fall 2022.
+This repository provides materials for a session that is part of the [I2DS Tools for Data Science workshop](https://github.com/intro-to-data-science-23-workshop) run at the [Hertie School, Berlin](https://www.hertie-school.org/en/) in October 2023. The student-run workshop is part of the course [Introduction to Data Science](https://github.com/intro-to-data-science-22) taught by Simon Munzert at the Hertie School, Berlin, in Fall 2023.
 
 ### Session contents
 
@@ -16,15 +16,16 @@ The goals of this session are to (1) equip you with conceptual knowledge about t
 
 ## Instructors
 
-- Sai Prusni Bandela ([website](http://simonmunzert.github.io/), [twitter](https://twitter.com/simonsaysnothin))
-- Kermit the Frog ([website](https://en.wikipedia.org/wiki/Kermit_the_Frog), [twitter](https://twitter.com/KermitTheFrog))
+- Sai Prusni Bandela ([website](https://github.com/prusnibandela))
+- Milton Mier ([website](https://github.com/milton0215))
+- Minho Kang ([website](https://github.com/minhokg))
 
 
 ## Further resources
 
 - [data.table overview at cran.r-project.org](https://cran.r-project.org/web/packages/data.table/vignettes/datatable-intro.html)
-- [Hands-on dplyr tutorial by Data School on YouTube](https://www.youtube.com/watch?v=jWjqLW-u3hc)
-- [R for Data Science book - part on data wrangling](https://r4ds.had.co.nz/wrangle-intro.html)
+- [R- bloggers for data.table](https://www.r-bloggers.com/2021/03/data-table-everything-you-need-to-know-to-get-you-started-in-r/)
+
 
 
 ## License
