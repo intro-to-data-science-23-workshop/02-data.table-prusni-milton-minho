@@ -186,17 +186,89 @@ Special symbol .N: Holds the number of observations in determined group.
 ----
 Find the number of properties corresponding to each town
 
-```{r, include=FALSE}
-DF <- read.csv("./material/real_estate.csv")
-DT <- as.data.table(DF)
+
+```{r}
+Ex_3_1 <- dt[, .(.N), by = .(Town)]
+head(Ex_3_1)
 ```
+---
+
+# Example 3.2
+----
+
+Find the number of properties corresponding to each town and property type
 
 
 ```{r}
-Ex_3_1 <- DT[, .(.N), by = .(Town)]
-head(Ex_3_1)
+Ex_3_2 <- dt[, .(.N), by = .(Town,`Property Type`)]
+head(Ex_3_2)
+
+```
+---
+
+# Example 3.3
+
+Find the number of properties corresponding to each town and property type in 2010
+
+```{r}
+
+Ex_3_3 <- dt[`List Year`=="2010", .(.N), by = .(Town,`Property Type`)]
+head(Ex_3_3)
 ```
 
+---
+
+# Example 3.4
+
+----
+
+ Find the average sale amount corresponding to each town and property type in 2010
+
+
+```{r}
+Ex_3_4 <- dt[`List Year`=="2010", mean(`Sale Amount`), by = .(Town,`Property Type`)]
+head(Ex_3_4)
+```
+
+---
+
+# Example 3.5
+
+----
+
+Find the average sale amount and ratio corresponding to each town and property type in 2010
+
+```{r}
+Ex_3_5 <- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`)]
+head(Ex_3_5)
+```
+
+---
+
+# Example 3.6
+
+----
+
+Find the average sale amount and ratio corresponding to each town, property type and assessed value higher than 100k, in 2010
+
+
+```{r}
+Ex_3_6 <- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`,`Assessed Value` >100000)]
+
+head(Ex_3_6)
+```
+
+---
+
+# Example 3.7
+
+----
+ include in Example 3.5. ascending ordered in town and descending order in property type
+ 
+```{r}
+Ex_3_7 <- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`)] [order(Town, -`Property Type`)]
+head(Ex_3_7)
+```
 
 
 

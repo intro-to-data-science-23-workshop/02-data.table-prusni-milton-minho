@@ -81,7 +81,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 12.33 seconds
+## Importing time: 4.73 seconds
 ```
 ]
 .pull-right[
@@ -97,7 +97,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 1.17 seconds
+## Importing time: 0.61 seconds
 ```
 ]]
 .panel[.panel-name[Convenience]
@@ -161,10 +161,8 @@ Find the number of properties corresponding to each town
 
 
 
-
-
 ```r
-&gt; Ex_3_1 &lt;- DT[, .(.N), by = .(Town)]
+&gt; Ex_3_1 &lt;- dt[, .(.N), by = .(Town)]
 &gt; head(Ex_3_1)
 ```
 
@@ -177,7 +175,148 @@ Find the number of properties corresponding to each town
 ## 5: Bethany 1616
 ## 6:  Bethel 5598
 ```
+---
 
+# Example 3.2
+----
+
+Find the number of properties corresponding to each town and property type
+
+
+
+```r
+&gt; Ex_3_2 &lt;- dt[, .(.N), by = .(Town,`Property Type`)]
+&gt; head(Ex_3_2)
+```
+
+```
+##       Town Property Type   N
+## 1: Ansonia    Commercial   8
+## 2: Ashford   Residential  75
+## 3:    Avon   Residential 504
+## 4:  Berlin   Residential 384
+## 5: Bethany    Commercial   2
+## 6:  Bethel   Residential 488
+```
+---
+
+# Example 3.3
+
+Find the number of properties corresponding to each town and property type in 2010
+
+
+```r
+&gt; Ex_3_3 &lt;- dt[`List Year`=="2010", .(.N), by = .(Town,`Property Type`)]
+&gt; head(Ex_3_3)
+```
+
+```
+##         Town Property Type   N
+## 1:  Hartford               147
+## 2:   Meriden         Condo 131
+## 3:   Enfield         Condo  73
+## 4: Bethlehem                 8
+## 5:   Danbury                53
+## 6: Mansfield                20
+```
+
+---
+
+# Example 3.4
+
+----
+
+ Find the average sale amount corresponding to each town and property type in 2010
+
+
+
+```r
+&gt; Ex_3_4 &lt;- dt[`List Year`=="2010", mean(`Sale Amount`), by = .(Town,`Property Type`)]
+&gt; head(Ex_3_4)
+```
+
+```
+##         Town Property Type        V1
+## 1:  Hartford                868915.6
+## 2:   Meriden         Condo  113666.1
+## 3:   Enfield         Condo  159418.0
+## 4: Bethlehem                 84999.0
+## 5:   Danbury               1681347.2
+## 6: Mansfield                618555.4
+```
+
+---
+
+# Example 3.5
+
+----
+
+Find the average sale amount and ratio corresponding to each town and property type in 2010
+
+
+```r
+&gt; Ex_3_5 &lt;- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`)]
+&gt; head(Ex_3_5)
+```
+
+```
+##         Town Property Type        V1        V2
+## 1:  Hartford                868915.6 1.5856239
+## 2:   Meriden         Condo  113666.1 1.8388497
+## 3:   Enfield         Condo  159418.0 0.9655503
+## 4: Bethlehem                 84999.0 0.9892965
+## 5:   Danbury               1681347.2 1.3060542
+## 6: Mansfield                618555.4 2.2139034
+```
+
+---
+
+# Example 3.6
+
+----
+
+Find the average sale amount and ratio corresponding to each town, property type and assessed value higher than 100k, in 2010
+
+
+
+```r
+&gt; Ex_3_6 &lt;- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`,`Assessed Value` &gt;100000)]
+&gt; 
+&gt; head(Ex_3_6)
+```
+
+```
+##         Town Property Type Assessed Value         V1        V2
+## 1:  Hartford                        FALSE  101042.54 1.2549981
+## 2:   Meriden         Condo           TRUE  158588.06 1.1839235
+## 3:   Enfield         Condo           TRUE  175332.41 0.9254242
+## 4: Bethlehem                         TRUE  128333.33 1.1813865
+## 5:   Danbury                         TRUE 2376028.66 1.3128604
+## 6: Mansfield                        FALSE   87252.78 0.6426888
+```
+
+---
+
+# Example 3.7
+
+----
+ include in Example 3.5. ascending ordered in town and descending order in property type
+ 
+
+```r
+&gt; Ex_3_7 &lt;- dt[`List Year`=="2010", .(mean(`Sale Amount`), mean(`Sales Ratio`)), by = .(Town,`Property Type`)] [order(Town, -`Property Type`)]
+&gt; head(Ex_3_7)
+```
+
+```
+##       Town Property Type       V1        V2
+## 1: Andover Single Family 248182.1 0.8505913
+## 2: Andover                39213.0 0.7939781
+## 3: Ansonia    Two Family 138829.1 1.6120380
+## 4: Ansonia  Three Family 138580.0 1.7169154
+## 5: Ansonia Single Family 180955.5 1.1250155
+## 6: Ansonia   Four Family  99000.0 1.8050505
+```
 
 
 
