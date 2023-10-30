@@ -207,4 +207,8 @@ name: data
 library(nycflights13)
 head(flights,1)
 ```
+```{r}
+dim(flights)
+```
+
 
