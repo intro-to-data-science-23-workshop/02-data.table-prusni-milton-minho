@@ -6,7 +6,7 @@
     <meta name="author" content="Prusni" />
     <meta name="author" content="Milton" />
     <meta name="author" content="Minho" />
-    <meta name="date" content="2023-10-27" />
+    <meta name="date" content="2023-10-30" />
     <script src="workshop_files/header-attrs/header-attrs.js"></script>
     <link href="workshop_files/tile-view/tile-view.css" rel="stylesheet" />
     <script src="workshop_files/tile-view/tile-view.js"></script>
@@ -66,7 +66,7 @@ Don't forget to import library "data.table"
 .panel[.panel-name[Fast]
 Fread is the efficient tool for importing large data.  
 
-&lt;font size="5"&gt;For 88MB size data&lt;/font&gt;...
+&lt;font size="5"&gt;For 88MB size [data](#data)&lt;/font&gt;...
 
 .pull-left[
 
@@ -81,7 +81,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 13.03 seconds
+## Importing time: 7.12 seconds
 ```
 ]
 .pull-right[
@@ -97,7 +97,7 @@ Fread is the efficient tool for importing large data.
 ```
 
 ```
-## Importing time: 1.09 seconds
+## Importing time: 1.02 seconds
 ```
 ]]
 .panel[.panel-name[Convenience]
@@ -388,20 +388,13 @@ Find the average sale amount and ratio corresponding to each town and property t
 ```
 
 ```
-##         Town Property Type        V1
-## 1:  Hartford                868915.6
-## 2:   Meriden         Condo  113666.1
-## 3:   Enfield         Condo  159418.0
-## 4: Bethlehem                 84999.0
-## 5:   Danbury               1681347.2
-## 6: Mansfield                618555.4
-##           V2
-## 1: 1.5856239
-## 2: 1.8388497
-## 3: 0.9655503
-## 4: 0.9892965
-## 5: 1.3060542
-## 6: 2.2139034
+##         Town Property Type        V1        V2
+## 1:  Hartford                868915.6 1.5856239
+## 2:   Meriden         Condo  113666.1 1.8388497
+## 3:   Enfield         Condo  159418.0 0.9655503
+## 4: Bethlehem                 84999.0 0.9892965
+## 5:   Danbury               1681347.2 1.3060542
+## 6: Mansfield                618555.4 2.2139034
 ```
 
 ---
@@ -418,20 +411,13 @@ Find the average sale amount and ratio corresponding to each town and property t
 ```
 
 ```
-##       Town Property Type       V1
-## 1: Andover Single Family 248182.1
-## 2: Andover                39213.0
-## 3: Ansonia    Two Family 138829.1
-## 4: Ansonia  Three Family 138580.0
-## 5: Ansonia Single Family 180955.5
-## 6: Ansonia   Four Family  99000.0
-##           V2
-## 1: 0.8505913
-## 2: 0.7939781
-## 3: 1.6120380
-## 4: 1.7169154
-## 5: 1.1250155
-## 6: 1.8050505
+##       Town Property Type       V1        V2
+## 1: Andover Single Family 248182.1 0.8505913
+## 2: Andover                39213.0 0.7939781
+## 3: Ansonia    Two Family 138829.1 1.6120380
+## 4: Ansonia  Three Family 138580.0 1.7169154
+## 5: Ansonia Single Family 180955.5 1.1250155
+## 6: Ansonia   Four Family  99000.0 1.8050505
 ```
 
 ---
@@ -442,6 +428,38 @@ class: inverse, center, middle
 ----
 
 ---
+name: data
+
+# What is our data 
+----
+
+Real estate sales with a sales price of $2,000 or greater that occur between September 30 and October 1 of each year for **20 years**
+
+
+```r
+&gt; dt &lt;- fread('./material/real_estate.csv')
+&gt; head(dt,1)
+```
+
+```
+##    Serial Number List Year Date Recorded    Town         Address Assessed Value
+## 1:       2020348      2020    09/13/2021 Ansonia 230 WAKELEE AVE         150500
+##    Sale Amount Sales Ratio Property Type Residential Type Non Use Code
+## 1:      325000       0.463    Commercial                              
+##    Assessor Remarks OPM remarks Location
+## 1:
+```
+
+
+```r
+&gt; dim(dt)
+```
+
+```
+## [1] 997213     14
+```
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

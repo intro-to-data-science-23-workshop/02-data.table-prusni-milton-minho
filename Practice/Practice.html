@@ -3,13 +3,13 @@
   <head>
     <title>Practice for data.table</title>
     <meta charset="utf-8" />
-    <meta name="date" content="2023-10-27" />
+    <meta name="date" content="2023-10-30" />
     <script src="Practice_files/header-attrs/header-attrs.js"></script>
     <link href="Practice_files/tile-view/tile-view.css" rel="stylesheet" />
     <script src="Practice_files/tile-view/tile-view.js"></script>
     <link href="Practice_files/panelset/panelset.css" rel="stylesheet" />
     <script src="Practice_files/panelset/panelset.js"></script>
-    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"bb34c7197d9348429a14607e573645a6","expires":14}</script>
+    <script type="application/json" id="xaringanExtra-editable-docid">{"id":"ecff877c203c4eb080578b6aa0e11922","expires":14}</script>
     <script src="Practice_files/himalaya/himalaya.js"></script>
     <script src="Practice_files/js-cookie/js.cookie.js"></script>
     <link href="Practice_files/editable/editable.css" rel="stylesheet" />
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 
 # Practice for data.table
 ## with 7 questions
-### 2023-10-27
+### 2023-10-30
 
 ---
 
@@ -42,7 +42,7 @@ class: center, middle, inverse, title-slide
 library(data.table)
 ```
 
-* We will use flights data in **nycflights13** library and remove NA
+* We will use flights [data](#data) in **nycflights13** library and remove NA
 
 
 ```r
@@ -215,7 +215,27 @@ ans &lt;- flights[,
 class:inverse, center, middle
 
 # Thank you 
+---
+name: data
+
+# flights in nycflights13
 ----
+
+
+```r
+library(nycflights13)
+head(flights,1)
+```
+
+```
+##    year month day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+## 1: 2013     1   1      517            515         2      830            819
+##    arr_delay carrier flight tailnum origin dest air_time distance hour minute
+## 1:        11      UA   1545  N14228    EWR  IAH      227     1400    5     15
+##              time_hour
+## 1: 2013-01-01 05:00:00
+```
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

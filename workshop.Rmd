@@ -103,7 +103,7 @@ Don't forget to import library "data.table"
 .panel[.panel-name[Fast]
 Fread is the efficient tool for importing large data.  
 
-<font size="5">For 88MB size data</font>...
+<font size="5">For 88MB size [data](#data)</font>...
 
 .pull-left[
 ```{r}
@@ -372,3 +372,20 @@ class: inverse, center, middle
 ----
 
 ---
+name: data
+
+# What is our data 
+----
+
+Real estate sales with a sales price of $2,000 or greater that occur between October 1 and September 30 (next year) of each year for **20 years** (from 2001 to 2020)
+
+```{r}
+dt <- fread('./material/real_estate.csv')
+head(dt,1)
+```
+
+```{r}
+dim(dt)
+```
+
+
